@@ -23,20 +23,21 @@ type Grpc struct {
 
 func NewGrpc(
 	port string,
+	authSrv AuthServiceInterface,
 	sender sender.Sender,
 	template template.TemplateInterface,
 	i18n *i18n.I18n,
 	logger *log.Logger,
 ) *Grpc {
 	srv := grpc.NewServer()
-	notifyServer := NewNotify(sender, template, i18n, logger)
+	notifyServer := NewNotify(sender, template, i18n, authSrv, logger)
 	pb.RegisterNotifyServer(srv, notifyServer)
 
 	return &Grpc{server: srv, port: port, logger: logger}
 }
 
 func (g *Grpc) StartServer() {
-	g.logger.InfoLog.Println("Server transport starting...")
+	g.logger.InfoLog.Println("Server delivery starting...")
 
 	connection, err := net.Listen("tcp", g.port)
 	if err != nil {
@@ -50,6 +51,6 @@ func (g *Grpc) StartServer() {
 }
 
 func (g *Grpc) StopServer() {
-	g.logger.InfoLog.Println("Server transport stopping...")
+	g.logger.InfoLog.Println("Server delivery stopping...")
 	g.server.Stop()
 }

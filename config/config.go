@@ -51,3 +51,15 @@ func (c *Config) GetSmtpPassword() string {
 func (c *Config) GetFrom() string {
 	return viper.GetString("FROM")
 }
+
+func (c *Config) GetKafkaBroker1() string {
+	return viper.GetString("KAFKA_BROKER_1")
+}
+
+func (c *Config) GetKafkaBroker2() string {
+	return viper.GetString("KAFKA_BROKER_2")
+}
+
+func (c *Config) GetTopicUserRegister() string {
+	return viper.GetString("TOPIC_USER_REGISTER")
+}

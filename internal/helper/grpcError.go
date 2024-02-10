@@ -27,7 +27,7 @@ func GetBadRequestError(err error) error {
 }
 
 func MakeGrpcBadRequestError(errDetails map[string]error) error {
-	st := status.New(codes.InvalidArgument, "bad request error")
+	st := status.New(codes.InvalidArgument, "bad dto error")
 	rsp := getErrorResponse(errDetails)
 	st, err := st.WithDetails(rsp)
 	if err != nil {
